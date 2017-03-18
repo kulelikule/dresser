@@ -8,7 +8,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         publicPath: '/dist/',
-        filename: 'dresser.js',
+        filename: 'js/dresser.js',
         library: 'dresser',
         libraryTarget: 'umd',
         umdNamedDefine: true
@@ -38,8 +38,14 @@ module.exports = {
                 "less-loader"
             ]
         },{
-            test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
-            loader: 'url-loader?limit=8192'
+            //文件加载器，处理文件静态资源
+            test: /\.(woff|woff2|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+            loader: 'file-loader?name=./fonts/[name].[ext]'
+        },{
+            //图片加载器，雷同file-loader，更适合图片，可以将较小的图片转成base64，减少http请求
+            //如下配置，将小于8192byte的图片转成base64码
+            test: /\.(png|jpg|gif)$/,
+            loader: 'url-loader?limit=8192&name=./img/[hash].[ext]'
         }]
     },
     devtool: "source-map",
