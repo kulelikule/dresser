@@ -1,4 +1,5 @@
-import Page from './components/Page';
+import HeaderTop from './components/HeaderTop.vue';
+import './css/base.less';
 
 // 导出 install 函数
 // Vue.use() 会调用这个函数
@@ -7,7 +8,8 @@ const install = function(Vue, opts = {}) {
     if (install.installed) return;
 
     // 指定组件 name
-    Vue.component(Page.name, Page);
+    //Vue.component(HeaderTop.name, HeaderTop);
+    {{Vue.component($$.name, $$);}}
 }
 
 // 自动安装 方便打包成压缩文件, 用<script scr=''></script>的方式引用
@@ -17,6 +19,6 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 // 把模块导出
 module.exports = {
-    install,
-    Page
+    {{$$,}}
+    install
 }
