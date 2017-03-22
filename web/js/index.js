@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Dresser from '../../src/main';
 import App from './components/App.vue';
 
-import '../css/index.less';
+import '../css/base.less';
 
 Vue.use(Dresser);
 

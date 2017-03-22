@@ -1,6 +1,6 @@
 <template>
     <div class="header">
-        <span class="logo"></span>
+        <span>{{name}}</span>
     </div>
 </template>
 
@@ -9,7 +9,7 @@
         name: 'header-top',
         props: {
             name: {
-                default: '首页'
+                default: '标题'
             }
         }
     }
@@ -17,13 +17,10 @@
 
 <style lang="less" scoped>
     .header{
-        height: 48px;
-        .logo {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            background: url('../img/logo.png') no-repeat 0 0;
-            background-size: cover;
-        }
+        height: 44px;
+        line-height: 44px;
+        text-align: center;
+        color: #fff;
+        background-color: #000;
     }
 </style>
