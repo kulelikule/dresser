@@ -1,8 +1,8 @@
 /**
  * Created by lijiajun on 2017/3/20.
  */
-{{import $$ from './components/$$.vue';}}
-import './css/base.less';
+    import './css/base.less';
+    {{import $$ from './components/$$.vue';}}
 
 // 导出 install 函数
 // Vue.use() 会调用这个函数

@@ -1,9 +1,9 @@
 /**
  * Created by lijiajun on 2017/3/20.
  */
-import HeaderTop from './components/HeaderTop.vue';
+    import './css/base.less';
+    import HeaderTop from './components/HeaderTop.vue';
     import Logo from './components/Logo.vue';
-import './css/base.less';
 
 // 导出 install 函数
 // Vue.use() 会调用这个函数

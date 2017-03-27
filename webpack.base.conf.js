@@ -53,10 +53,12 @@ module.exports = {
 
 function generateCssLoaders(loaders){
     return loaders.map((name) => {
-        var loader = name + '-loader';
-        if(process.env.NODE_ENV === "production"){
-            loader += '?sourceMap';
+        var sourceMap = process.env.NODE_ENV === "production" ? false : true;
+        return {
+            loader: name + '-loader',
+            options: {
+                sourceMap
+            }
         }
-        return loader;
     });
 }

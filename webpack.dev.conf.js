@@ -5,6 +5,12 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var baseWebpackConfig = require('./webpack.base.conf');
 
+//用来监测知否新增或者删除组件
+const exec = require('child_process').exec;
+exec('node generator.js', (error, stdout, stderr) => {
+    if(error) throw error;
+});
+
 module.exports = merge(baseWebpackConfig, {
     entry: {
         index: './web/js/index.js'
