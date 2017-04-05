@@ -51,9 +51,15 @@ module.exports = merge(baseWebpackConfig, {
     //使用webpack-dev-server，提高开发效率
     devServer: {
         contentBase: './',
-        host: 'localhost',
+        host: '10.121.58.89',
         port: 9090,
         inline: true,
         hot: true,
+        proxy: {
+            '/mock': {
+                target: 'http://10.121.58.89:3000',
+                secure: false
+            }
+        }
     }
 });

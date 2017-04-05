@@ -1,12 +1,15 @@
 /**
  * Created by lijiajun on 2017/3/20.
  */
+    import MuseUI from 'muse-ui'
+    import 'muse-ui-css';
     import './css/base.less';
     {{import $$ from './components/$$.vue';}}
 
 // 导出 install 函数
 // Vue.use() 会调用这个函数
 const install = function(Vue, opts = {}) {
+    Vue.use(MuseUI);
     // 如果安装过就忽略
     if (install.installed) return;
 

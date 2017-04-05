@@ -4,7 +4,11 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
     resolve: {
-        extensions: ['.js', '.vue']
+        extensions: ['.js', '.vue'],
+        alias: {
+            macarons: 'echarts/theme/macarons.js',
+            'muse-ui-css': 'muse-ui/dist/muse-ui.css'
+        }
     },
     module: {
         rules: [{

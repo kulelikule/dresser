@@ -18,9 +18,13 @@ module.exports = merge(baseWebpackConfig, {
         umdNamedDefine: true
     },
     /*第三方库不被打入包里*/
-    // externals: {
-    //     'axios': 'axios'
-    // },
+     externals: {
+         'echarts': 'echarts',
+         'uuid': 'uuid',
+         'muse-ui': 'muse-ui',
+         'muse-ui-css': 'muse-ui/dist/muse-ui.css',
+         'axios': 'axios'
+    },
     plugins: [
         new ExtractTextPlugin("css/dresser.css"),
         new OptimizeCSSPlugin(),//压缩css
