@@ -1,5 +1,5 @@
 <template>
-    <div class="paper-block clearfix">
+    <div class="databox-group paper-block clearfix">
         <databox v-for="(item, i) in items"
                  :key="i" class="fl databox-item"
                  :class="{'databox-gap': i>1}"

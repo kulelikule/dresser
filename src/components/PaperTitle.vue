@@ -1,5 +1,5 @@
 <template>
-    <div class="title-container">
+    <div class="paper-title pos-r">
         <span class="title">{{name}}</span>
         <slot></slot>
     </div>
@@ -18,7 +18,7 @@
 </script>
 
 <style lang="less" scoped>
-    .title-container{
+    .paper-title{
         padding: 8px;
     }
     .title{

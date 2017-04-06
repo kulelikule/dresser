@@ -18,11 +18,6 @@
         },
         components: {
             Datatable
-        },
-        watch: {
-            dataSource() {
-                this.getData();
-            }
         }
     }
 </script>

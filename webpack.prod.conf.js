@@ -23,7 +23,8 @@ module.exports = merge(baseWebpackConfig, {
          'uuid': 'uuid',
          'muse-ui': 'muse-ui',
          'muse-ui-css': 'muse-ui/dist/muse-ui.css',
-         'axios': 'axios'
+         'axios': 'axios',
+         'iscroll': 'iscroll/build/iscroll-lite'
     },
     plugins: [
         new ExtractTextPlugin("css/dresser.css"),

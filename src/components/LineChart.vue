@@ -1,7 +1,7 @@
 <template>
-    <mu-paper class="line-chart paper-block pos-r">
+    <mu-paper class="line-chart paper-block pos-r" :zDepth="1">
         <div class="bracket"></div>
-        <div class="target pos-a">
+        <div class="target pos-a trbl0">
             <paper-title :name="dataSource.name">
                 <div class="tab fr">
                     <template v-for="item in categoryNames">
@@ -10,7 +10,7 @@
                     </template>
                 </div>
             </paper-title>
-            <div :id="echartsId" class="echarts-container pos-a"></div>
+            <div :id="echartsId" class="echarts-container pos-a trbl0"></div>
         </div>
     </mu-paper>
 </template>
@@ -47,12 +47,9 @@
         },
         watch: {
             //监听属性改变，立刻重新渲染
-            _props: {
-                handler: function() {
-                    this.LCM = new LineChartModel(this.dataSource);
-                    this.swicthCatagory();
-                },
-                deep: true
+            _props() {
+                this.LCM = new LineChartModel(this.dataSource);
+                this.swicthCatagory();
             }
         },
         methods: {
@@ -136,12 +133,6 @@
     .bracket{
         padding-top: 75%;
     }
-    .target{
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-    }
     .tab-btn{
         width: 40px;
         min-width: 40px;
@@ -154,8 +145,5 @@
     }
     .echarts-container {
         top: 45px;
-        left: 0;
-        right: 0;
-        bottom: 0;
     }
 </style>

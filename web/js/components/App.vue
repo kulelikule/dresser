@@ -1,24 +1,63 @@
 <template>
     <div id="app">
+        <pie-chart-group></pie-chart-group>
         <!--http://localhost:9090/mock/box-->
-        <databox-group :data-source="boxData" :formatter="boxOptions.formatter"></databox-group>
+        <!--<databox-group :data-source="boxData" :formatter="boxOptions.formatter"></databox-group>-->
         <!--:options="tableOptions"-->
         <datatable-group :data-source="tableData" :columnsFormatter="tableOptions.columnsFormatter"></datatable-group>
         <!--http://localhost:9090/mock/line-chart-->
-        <line-chart-group :data-source="lineChartData"
-                          :type="lineChartOptions.type"
-                          :gap="lineChartOptions.gap"
-                          :axisLabelFormatter="lineChartOptions.axisLabelFormatter"
-                          :tooltipFormatter="lineChartOptions.tooltipFormatter">
-        </line-chart-group>
+        <!--<line-chart-group :data-source="lineChartData"-->
+                          <!--:type="lineChartOptions.type"-->
+                          <!--:gap="lineChartOptions.gap"-->
+                          <!--:axisLabelFormatter="lineChartOptions.axisLabelFormatter"-->
+                          <!--:tooltipFormatter="lineChartOptions.tooltipFormatter">-->
+        <!--</line-chart-group>-->
+        <composite :data-source="compositeData"></composite>
     </div>
 </template>
 
 <script>
     import { unit } from '../modules/convert';
     export default {
+        mounted() {
+
+        },
         data() {
             return {
+                compositeData:[
+                    {
+                        name: 'databox',
+                        data: [{
+                            "project": "当日销售", "actual": "5678.00"
+                        },{
+                            "project": "销售额", "actual": "1703.40万"
+                        }]
+                    },{
+                        name: 'datatable',
+                        data: [{
+                            "name": "经营概况",
+                            "header": ["项目", "当年", "去年", "增长率"],
+                            "data": [["产量", "111", "222", "99%"],["销量", "333", "444", "79%"]]
+                        }]
+                    },{
+                        name: 'barChart',
+                        data: [{
+                            "name": "产量",
+                            "category": [{
+                                "name": "日",
+                                "xAxis": ["2017年01月01日","2017年01月15日","2017年01月30日"],
+                                "series": [{
+                                    "name": "当期值",
+                                    "data": [111,222,333]
+                                },{
+                                    "name": "同期值",
+                                    "data": [444,555,666]
+                                }]
+                            }]
+                        }]
+                    }
+                ],
+
                 url: 'http://localhost:9090/mock/table',
                 boxOptions: {
                     formatter: v => unit(v)
@@ -40,13 +79,13 @@
                     }
                 },
                 tableData: [{
-                    "header": ["项目", "当年", "去年", "增长率"],
+                    "header": ["项目", "当年", "去年", "增长率","增长率","前年"],
                     "data": [
-                        ["产量", "111", "222", "99%"],
-                        ["销量", "333", "444", "79%"],
-                        ["销量(业务)", "3323", "444", "79%"],
-                        ["销量", "3313", "4441", "59%"],
-                        ["销量", "1333", "444", "79%"]
+                        ["产量", "111", "222", "99%", "99%", "111"],
+                        ["销量", "333", "444", "79%", "79%", "111"],
+                        ["销量(业务)", "3323", "444", "79%", "79%", "111"],
+                        ["销量", "3313", "4441", "59%", "59%", "111"],
+                        ["销量", "1333", "444", "79%", "79%", "111"]
                     ]
                 },{
                     "header": ["项目2", "当年2", "去年2", "增长率2"],
