@@ -6,10 +6,10 @@
 
 <script>
     import Datatable from './Datatable.vue';
-    import { sourceMixin, datatableMixin } from '../js/mixin';
+    import { groupSourceMixin, datatableMixin } from '../js/mixin';
     export default {
         name: 'datatable-group',
-        mixins: [sourceMixin, datatableMixin],
+        mixins: [groupSourceMixin, datatableMixin],
         props: {
             dataSource: {
                 required: true,

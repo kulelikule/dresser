@@ -1,10 +1,10 @@
 <template>
     <div id="app">
-        <pie-chart-group></pie-chart-group>
+        <!--<pie-chart-group :data-source="pieData" :tooltipFormatter="pieOptions.tooltipFormatter"></pie-chart-group>-->
         <!--http://localhost:9090/mock/box-->
         <!--<databox-group :data-source="boxData" :formatter="boxOptions.formatter"></databox-group>-->
         <!--:options="tableOptions"-->
-        <datatable-group :data-source="tableData" :columnsFormatter="tableOptions.columnsFormatter"></datatable-group>
+        <!--<datatable-group :data-source="tableData" :columnsFormatter="tableOptions.columnsFormatter"></datatable-group>-->
         <!--http://localhost:9090/mock/line-chart-->
         <!--<line-chart-group :data-source="lineChartData"-->
                           <!--:type="lineChartOptions.type"-->
@@ -12,7 +12,14 @@
                           <!--:axisLabelFormatter="lineChartOptions.axisLabelFormatter"-->
                           <!--:tooltipFormatter="lineChartOptions.tooltipFormatter">-->
         <!--</line-chart-group>-->
-        <composite :data-source="compositeData"></composite>
+        <!--:data-source="compositeData"-->
+        <composite data-source="http://10.121.58.89:9090/mock/composite"
+                   :opts-databox="boxOptions"
+                   :opts-datatable="tableOptions"
+                   :opts-line-chart="lineChartOptions"
+                   :opts-bar-chart="lineChartOptions"
+                   :opts-pie-chart="pieOptions">
+        </composite>
     </div>
 </template>
 
@@ -30,14 +37,21 @@
                         data: [{
                             "project": "当日销售", "actual": "5678.00"
                         },{
-                            "project": "销售额", "actual": "1703.40万"
+                            "project": "销售额", "actual": "1702223"
                         }]
                     },{
                         name: 'datatable',
                         data: [{
                             "name": "经营概况",
-                            "header": ["项目", "当年", "去年", "增长率"],
-                            "data": [["产量", "111", "222", "99%"],["销量", "333", "444", "79%"]]
+                            "category": [{
+                                "name": "产量",
+                                "header": ["项目", "当年", "去年", "增长率", "预期值"],
+                                "data": [["产量", "111111", "222111111", "99%", "1232111"],["销量", "3333333", "444", "79%", "23232133"]]
+                            },{
+                                    "name": "销售量",
+                                    "header": ["项目2", "当年2", "去年2", "增长率2", "预期值2"],
+                                    "data": [["产量", "3455", "2222211", "99%", "1123"],["销量", "44444", "454", "79%", "11232133"]]
+                            }]
                         }]
                     },{
                         name: 'barChart',
@@ -48,15 +62,55 @@
                                 "xAxis": ["2017年01月01日","2017年01月15日","2017年01月30日"],
                                 "series": [{
                                     "name": "当期值",
-                                    "data": [111,222,333]
+                                    "data": [111111,211122,111333]
                                 },{
                                     "name": "同期值",
-                                    "data": [444,555,666]
+                                    "data": [441114,551115,661116]
+                                }]
+                            },{
+                                "name": "月",
+                                "xAxis": ["2017年01月05日","2017年02月15日","2017年03月30日"],
+                                "series": [{
+                                    "name": "当期值",
+                                    "data": [22222,211122,111333]
+                                },{
+                                    "name": "同期值",
+                                    "data": [641114,151115,661116]
                                 }]
                             }]
                         }]
+                    },{
+                        name: 'lineChart',
+                        data: [{
+                            "name": "产量",
+                            "category": [{
+                                "name": "日",
+                                "xAxis": ["2017年01月01日","2017年01月15日","2017年01月30日"],
+                                "series": [{
+                                    "name": "当期值",
+                                    "data": [111111,211122,111333]
+                                },{
+                                    "name": "同期值",
+                                    "data": [441114,551115,661116]
+                                }]
+                            }]
+                        }]
+                    },{
+                        name: 'pieChart',
+                        data: [{
+                            "name": "经营概况",
+                            "data": [{"name": "产量", "value": 1111},{"name": "销售量", "value": 2222},{"name": "总量", "value": 3333}]
+                        }]
                     }
                 ],
+
+                pieOptions: {
+                    tooltipFormatter: "{b} : {c} ({d}%)"
+                },
+                pieData: [{
+                    "name": "经营概况",
+                    "data": [{"name": "产量", "value": 1111},{"name": "销售量", "value": 2222},{"name": "总量", "value": 3333}]
+                }],
 
                 url: 'http://localhost:9090/mock/table',
                 boxOptions: {

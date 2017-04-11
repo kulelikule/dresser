@@ -4,7 +4,7 @@
         <div class="target pos-a trbl0">
             <paper-title :name="dataSource.name">
                 <div class="tab fr">
-                    <template v-for="item in categoryNames">
+                    <template v-if="categoryNames.length > 1" v-for="item in categoryNames">
                         <mu-raised-button v-if="item.isActive" primary :label="item.name" class="tab-btn" @click="swicthCatagory(item.name)"/>
                         <mu-raised-button v-else :label="item.name" class="tab-btn" @click="swicthCatagory(item.name)"/>
                     </template>
@@ -64,11 +64,23 @@
                     boundaryGap: false,
                     axisPointer : {
                         type : 'line'
+                    },
+                    grid: {
+                        top: 20,
+                        bottom: 20,
+                        right: 50,
+                        left: 20
                     }
                 } : {
                     boundaryGap: true,
                     axisPointer : {
                         type : 'shadow'
+                    },
+                    grid: {
+                        top: 20,
+                        bottom: 20,
+                        right: 20,
+                        left: 20
                     }
                 };
                 //配置鼠标移动/点击折线图时出现的提示
@@ -87,11 +99,8 @@
                     },
                     tooltip: tooltipSettings,
                     grid: {
-                        top: 20,
-                        bottom: 20,
-                        right: 50,
-                        left: 20,
                         containLabel: true,
+                        ...specialOpts.grid,
                         ...this.gap
                     },
                     xAxis: {

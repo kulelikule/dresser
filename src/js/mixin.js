@@ -2,7 +2,7 @@ import axios from 'axios';
 /**
  * 设置数据源，可能直接为数据，也可能是数据请求地址
  */
-let sourceMixin = {
+let groupSourceMixin = {
     data() {
         return {
             items: []
@@ -45,7 +45,7 @@ let lineChartMixin = {
             default: () => ({})
         },
         tooltipFormatter: {
-            type: Function
+            type: [Function, String]
         },
         axisLabelFormatter: {
             type: Function,
@@ -78,9 +78,21 @@ let datatableMixin = {
     }
 };
 
+/**
+ * 设置pieChart和pieChartGroup的属性
+ */
+let pieChartMixin = {
+    props: {
+        tooltipFormatter: {
+            type: [Function, String]
+        }
+    }
+};
+
 export {
-    sourceMixin,
+    groupSourceMixin,
     lineChartMixin,
     databoxMixin,
-    datatableMixin
+    datatableMixin,
+    pieChartMixin
 };

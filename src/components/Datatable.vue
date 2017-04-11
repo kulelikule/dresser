@@ -1,10 +1,9 @@
 <template>
     <mu-paper class="datatable paper-block" :zDepth="1">
         <paper-title name="经营概况">
-            <div class="sel-wrapper pos-a">
-                <mu-select-field v-model="selVal" :fullWidth="true">
-                    <mu-menu-item value="1" title="产量"/>
-                    <mu-menu-item value="2" title="销售量"/>
+            <div v-if="dataSource.category.length > 1" class="sel-wrapper pos-a">
+                <mu-select-field v-model="curCategory" :fullWidth="true">
+                    <mu-menu-item v-for="(category, i) in dataSource.category" :value="category.name" :title="category.name" :key="i"/>
                 </mu-select-field>
             </div>
         </paper-title>
@@ -33,7 +32,7 @@
                     <div class="tbody">
                         <div class="tr clearfix" v-for="(row, rowIndex) in separateData.secondTable.data" :key="rowIndex">
                             <div class="td txt-r" v-for="(item, i) in row" :key="i" :style="secondTableTdWidth">
-                                {{typeof columnsFormatter[i-1] === 'function' ? columnsFormatter[i-1](item) : item}}
+                                {{typeof columnsFormatter[i + 1] === 'function' ? columnsFormatter[i + 1](item) : item}}
                             </div>
                         </div>
                     </div>
@@ -53,7 +52,7 @@
         mixins: [datatableMixin],
         data() {
             return {
-                selVal: '1'
+                curCategory: ''
             }
         },
         props:{
@@ -63,13 +62,36 @@
             }
         },
         computed: {
+            visibleData() {
+                let categorys = this.dataSource.category;
+                //判断categorys是否是空数组
+                if(categorys.length > 0){
+                    if(this.curCategory === ''){
+                        this.curCategory = categorys[0].name;
+                    }
+                    for(let i = 0; i < categorys.length; i++){
+                        if(categorys[i].name === this.curCategory){
+                            return {
+                                header: categorys[i].header,
+                                data: categorys[i].data
+                            }
+                        }
+                    }
+                }else{
+                    this.curCategory = null;
+                    return {
+                        header: [],
+                        data: []
+                    }
+                }
+            },
             separateData() {
                 let firstTable = {}, secondTable = {};
-                firstTable.header = this.dataSource.header.slice(0, 1);
-                secondTable.header = this.dataSource.header.slice(1);
+                firstTable.header = this.visibleData.header.slice(0, 1);
+                secondTable.header = this.visibleData.header.slice(1);
                 firstTable.data = [];
                 secondTable.data = [];
-                this.dataSource.data.forEach((row) => {
+                this.visibleData.data.forEach((row) => {
                     firstTable.data.push(row.slice(0, 1));
                     secondTable.data.push(row.slice(1));
                 });

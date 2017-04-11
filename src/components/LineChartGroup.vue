@@ -13,10 +13,10 @@
 
 <script>
     import LineChart from './LineChart.vue';
-    import { sourceMixin, lineChartMixin } from '../js/mixin';
+    import { groupSourceMixin, lineChartMixin } from '../js/mixin';
     export default {
         name: 'line-chart-group',
-        mixins: [sourceMixin, lineChartMixin],
+        mixins: [groupSourceMixin, lineChartMixin],
         props: {
             dataSource: {
                 required: true,

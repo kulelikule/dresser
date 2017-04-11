@@ -2,7 +2,7 @@
     <mu-paper class="pie-chart paper-block pos-r" :zDepth="1">
         <div class="bracket"></div>
         <div class="target pos-a trbl0">
-            <paper-title name="经营概况"></paper-title>
+            <paper-title :name="dataSource.name"></paper-title>
             <div :id="echartsId" class="echarts-container pos-a trbl0"></div>
         </div>
     </mu-paper>
@@ -14,59 +14,66 @@
     import 'macarons';
 
     import PaperTitle from './PaperTitle.vue';
+    import { pieChartMixin } from '../js/mixin';
 
     export default {
         name: 'pie-chart',
+        mixins: [pieChartMixin],
         data() {
             return {
                 echartsId: uuid.v4()
             }
         },
+        props: {
+            dataSource:{
+                required: true,
+                type: Object
+            }
+        },
         components: {
             PaperTitle
         },
-        mounted() {
-            let option = {
-//                title : {
-//                    text: '某站点用户访问来源',
-//                    subtext: '纯属虚构',
-//                    x:'center'
-//                },
-                tooltip : {
-                    trigger: 'item',
-                    formatter: "{a} <br/>{b} : {c} ({d}%)"
-                },
-//                legend: {
-//                    orient: 'vertical',
-//                    left: 'left',
-//                    data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
-//                },
-                series : [
-                    {
-                        name: '访问来源',
-                        type: 'pie',
-                        radius : '80%',
-                        center: ['50%', '50%'],
-                        data:[
-                            {value:335, name:'直接访问'},
-                            {value:310, name:'邮件营销'},
-                            {value:234, name:'联盟广告'},
-                            {value:135, name:'视频广告'},
-                            {value:1548, name:'搜索引擎'}
-                        ],
-                        itemStyle: {
-                            emphasis: {
-                                shadowBlur: 10,
-                                shadowOffsetX: 0,
-                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+        watch: {
+            //监听属性改变，立刻重新渲染
+            _props() {
+                this.renderPie();
+            }
+        },
+        methods: {
+            renderPie() {
+                //配置鼠标移动/点击折线图时出现的提示
+                let tooltipSettings = {
+                    trigger: 'item'
+                }
+
+                if(this.tooltipFormatter){
+                    tooltipSettings.formatter = this.tooltipFormatter;
+                }
+
+                let option = {
+                    tooltip : tooltipSettings,
+                    series : [
+                        {
+                            type: 'pie',
+                            radius : '80%',
+                            center: ['50%', '50%'],
+                            data: this.dataSource.data,
+                            itemStyle: {
+                                emphasis: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
                             }
                         }
-                    }
-                ]
-            };
-
-            let pieChart = echarts.init(document.getElementById(this.echartsId), 'macarons');
-            pieChart.setOption(option, true);
+                    ]
+                };
+                this.pieChart.setOption(option, true);
+            }
+        },
+        mounted() {
+            this.pieChart = echarts.init(document.getElementById(this.echartsId), 'macarons');
+            this.renderPie();
         }
     }
 </script>

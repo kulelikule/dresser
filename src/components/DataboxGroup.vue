@@ -11,10 +11,10 @@
 
 <script>
     import Databox from './Databox.vue';
-    import { sourceMixin, databoxMixin } from '../js/mixin';
+    import { groupSourceMixin, databoxMixin } from '../js/mixin';
     export default {
         name: 'databox-group',
-        mixins: [sourceMixin, databoxMixin],
+        mixins: [groupSourceMixin, databoxMixin],
         props: {
             dataSource: {
                 required: true,
